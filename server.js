@@ -52,7 +52,7 @@ const tree = {
     ]
   },
   network: {
-    text: "Try these steps:\n1) Check Wi?Fi/Ethernet is connected.\n2) Toggle airplane mode or restart your network adapter.\n3) Try a different network (hotspot).\n4) Restart the device.\n5) Check if coworkers are impacted.\n\nDid that help?",
+    text: "Try these steps:\n1) Check Wi-Fi/Ethernet is connected.\n2) Toggle airplane mode or restart your network adapter.\n3) Try a different network (hotspot).\n4) Restart the device.\n5) Check if coworkers are impacted.\n\nDid that help?",
     options: [
       { id: "net_resolved", label: "Yes, network is back", next: "resolved" },
       { id: "net_still", label: "Still having issues", next: "network_more" }
@@ -118,7 +118,7 @@ const tree = {
     ]
   },
   other: {
-    text: "Please briefly describe the issue. I?ll suggest a few generic checks.",
+    text: "Please briefly describe the issue. I'll suggest a few generic checks.",
     allowFreeform: true,
     options: [
       { id: "other_continue", label: "Continue", next: "generic" }
@@ -132,11 +132,11 @@ const tree = {
     ]
   },
   resolved: {
-    text: "Great ? glad it?s working now. If the issue returns, you can come back and escalate.",
+    text: "Great! glad it's working now. If the issue returns, you can come back and escalate.",
     options: []
   },
   escalate: {
-    text: "Thanks. Click ?Notify IT team? below and I?ll send your details to the team.",
+    text: "Thanks. Click 'Notify IT team' below and I'll send your details to the team.",
     options: []
   }
 };
