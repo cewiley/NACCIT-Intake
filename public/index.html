@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NACC IT Request Form</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>NACC IT Request Form</h1>
+        <p>Submit your issue and follow guided troubleshooting before escalation.</p>
+      </header>
+
+      <main>
+        <section class="card" id="intake-section">
+          <h2>Submit a ticket</h2>
+          <form id="intake-form">
+            <label>
+              Name
+              <input type="text" name="name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" required />
+            </label>
+            <label>
+              Slack username
+              <input type="text" name="slack" placeholder="e.g., first.last" required />
+            </label>
+            <label>
+              Issue summary
+              <textarea name="summary" rows="4" required></textarea>
+            </label>
+            <button type="submit">Start troubleshooting</button>
+          </form>
+        </section>
+
+        <section class="card hidden" id="chat-section">
+          <div class="chat-header">
+            <h2>Troubleshooting guide</h2>
+            <button id="reset-button" type="button">Start over</button>
+          </div>
+          <div class="chat-log" id="chat-log"></div>
+          <div class="options hidden" id="options"></div>
+          <form id="chat-form" class="hidden">
+            <input type="text" name="message" placeholder="Describe the issue briefly..." />
+            <button type="submit">Send</button>
+          </form>
+          <div class="escalate">
+            <p>Still stuck?</p>
+            <button id="escalate-button" type="button">Notify IT team</button>
+          </div>
+          <div class="status" id="status"></div>
+          <div class="email-template hidden" id="email-template">
+            <h3>Email template</h3>
+            <p>Copy this into an email to IT and send to NACCITSupport@livenation.com if needed.</p>
+            <textarea id="email-body" rows="10" readonly></textarea>
+            <div class="email-actions">
+              <button id="copy-email" type="button">Copy email</button>
+              <a id="mailto-link" href="#" class="button-link">Open in email</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
