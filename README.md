@@ -18,6 +18,7 @@ A local web app where users submit an issue, follow a guided decision-tree troub
 - App guides them through decision-tree troubleshooting steps.
 - If unresolved, user clicks ?Notify IT team?.
 - App generates an email template for IT and (optionally) creates a Jira issue.
+- Login/password escalations can also surface a direct access-ticket link (via env vars).
 
 ## Notes
 - Sessions are stored in memory for local use only.

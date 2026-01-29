@@ -182,6 +182,16 @@ button:hover {
   flex-wrap: wrap;
 }
 
+.ticket-link {
+  margin-top: 12px;
+}
+
+.ticket-link p {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .button-link {
   display: inline-flex;
   align-items: center;

@@ -12,6 +12,8 @@ const emailTemplateEl = document.getElementById("email-template");
 const emailBodyEl = document.getElementById("email-body");
 const copyEmailButton = document.getElementById("copy-email");
 const mailtoLink = document.getElementById("mailto-link");
+const ticketLinkEl = document.getElementById("ticket-link");
+const ticketLinkUrl = document.getElementById("ticket-link-url");
 
 let sessionId = null;
 let currentNode = null;
@@ -156,6 +158,8 @@ resetButton.addEventListener("click", () => {
   emailTemplateEl.classList.add("hidden");
   emailBodyEl.value = "";
   mailtoLink.href = "#";
+  ticketLinkEl.classList.add("hidden");
+  ticketLinkUrl.href = "#";
   toggleChat(false);
 });
 
@@ -197,6 +201,14 @@ escalateButton.addEventListener("click", async () => {
       const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       mailtoLink.href = mailto;
       emailTemplateEl.classList.remove("hidden");
+    }
+
+    if (data.ticketLink && data.ticketLink.url) {
+      ticketLinkUrl.href = data.ticketLink.url;
+      ticketLinkUrl.textContent = data.ticketLink.label || "Open access ticket";
+      ticketLinkEl.classList.remove("hidden");
+    } else {
+      ticketLinkEl.classList.add("hidden");
     }
 
     setStatus(note, "success");

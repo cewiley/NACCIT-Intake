@@ -9,6 +9,8 @@ const PORT = process.env.PORT || 3000;
 
 const IT_NOTIFY_EMAIL = process.env.IT_NOTIFY_EMAIL || "";
 const EMAIL_SUBJECT_PREFIX = process.env.EMAIL_SUBJECT_PREFIX || "[IT Intake]";
+const LOGIN_TICKET_URL = process.env.LOGIN_TICKET_URL || "";
+const LOGIN_TICKET_LABEL = process.env.LOGIN_TICKET_LABEL || "Open access ticket";
 
 const JIRA_BASE_URL = process.env.JIRA_BASE_URL || "";
 const JIRA_EMAIL = process.env.JIRA_EMAIL || "";
@@ -263,6 +265,9 @@ app.post("/api/next", (req, res) => {
     if (!option) {
       return res.status(400).json({ error: "Invalid option." });
     }
+    if (session.nodeId === "start" && !session.issueType) {
+      session.issueType = option.id;
+    }
     session.nodeId = option.next;
     session.messages.push({ role: "assistant", content: `Selected: ${option.label}` });
   }
@@ -306,10 +311,16 @@ app.post("/api/escalate", async (req, res) => {
       jiraResult = { skipped: false, error: jiraError.message };
     }
 
+    const ticketLink =
+      session.issueType === "login" && LOGIN_TICKET_URL
+        ? { url: LOGIN_TICKET_URL, label: LOGIN_TICKET_LABEL }
+        : null;
+
     return res.json({
       ok: true,
       email: emailResult,
       jira: jiraResult,
+      ticketLink,
       emailTemplate: {
         to: IT_NOTIFY_EMAIL,
         subject: emailTemplate.subject,
