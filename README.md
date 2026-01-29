@@ -1,4 +1,4 @@
-# Jira Decision-Tree Intake (Local)
+# Jira Decision-Tree Intake
 
 A local web app where users submit an issue, follow a guided decision-tree troubleshooting flow, and escalate to IT by email if still blocked. Jira issue creation is optional on escalation.
 
