@@ -321,6 +321,7 @@ app.post("/api/escalate", async (req, res) => {
       email: emailResult,
       jira: jiraResult,
       ticketLink,
+      issueType: session.issueType || "",
       emailTemplate: {
         to: IT_NOTIFY_EMAIL,
         subject: emailTemplate.subject,

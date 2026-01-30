@@ -10,13 +10,41 @@ const resetButton = document.getElementById("reset-button");
 const escalateButton = document.getElementById("escalate-button");
 const emailTemplateEl = document.getElementById("email-template");
 const emailBodyEl = document.getElementById("email-body");
+const additionalNotesEl = document.getElementById("additional-notes");
 const copyEmailButton = document.getElementById("copy-email");
 const mailtoLink = document.getElementById("mailto-link");
 const ticketLinkEl = document.getElementById("ticket-link");
 const ticketLinkUrl = document.getElementById("ticket-link-url");
+const loginContactEl = document.getElementById("login-contact");
+const generalContactEl = document.getElementById("general-contact");
+const generalMailto = document.getElementById("general-mailto");
+
+const GENERAL_SUPPORT_EMAIL = "NACCITSupport@livenation.com";
 
 let sessionId = null;
 let currentNode = null;
+let baseEmailTo = "";
+let baseEmailSubject = "";
+let baseEmailBody = "";
+
+function buildEmailBodyWithNotes(body, notes) {
+  if (!notes) return body;
+  return `${body}\n\nAdditional notes:\n${notes}`;
+}
+
+function syncEmailTemplate() {
+  const notes = (additionalNotesEl.value || "").trim();
+  const body = buildEmailBodyWithNotes(baseEmailBody, notes);
+  emailBodyEl.value = `To: ${baseEmailTo}\nSubject: ${baseEmailSubject}\n\n${body}`;
+
+  const templateMailto = `mailto:${encodeURIComponent(baseEmailTo)}?subject=${encodeURIComponent(baseEmailSubject)}&body=${encodeURIComponent(body)}`;
+  mailtoLink.href = templateMailto;
+
+  if (!generalContactEl.classList.contains("hidden")) {
+    const generalMailtoHref = `mailto:${encodeURIComponent(GENERAL_SUPPORT_EMAIL)}?subject=${encodeURIComponent(baseEmailSubject)}&body=${encodeURIComponent(body)}`;
+    generalMailto.href = generalMailtoHref;
+  }
+}
 
 function addMessage(role, text) {
   const row = document.createElement("div");
@@ -157,9 +185,16 @@ resetButton.addEventListener("click", () => {
   setStatus("");
   emailTemplateEl.classList.add("hidden");
   emailBodyEl.value = "";
+  additionalNotesEl.value = "";
   mailtoLink.href = "#";
   ticketLinkEl.classList.add("hidden");
   ticketLinkUrl.href = "#";
+  loginContactEl.classList.add("hidden");
+  generalContactEl.classList.add("hidden");
+  generalMailto.href = "#";
+  baseEmailTo = "";
+  baseEmailSubject = "";
+  baseEmailBody = "";
   toggleChat(false);
 });
 
@@ -194,13 +229,10 @@ escalateButton.addEventListener("click", async () => {
     }
 
     if (data.emailTemplate) {
-      const to = data.emailTemplate.to || "";
-      const subject = data.emailTemplate.subject || "IT Escalation";
-      const body = data.emailTemplate.body || "";
-      emailBodyEl.value = `To: ${to}\nSubject: ${subject}\n\n${body}`;
-      const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      mailtoLink.href = mailto;
-      emailTemplateEl.classList.remove("hidden");
+      baseEmailSubject = data.emailTemplate.subject || "IT Escalation";
+      baseEmailBody = data.emailTemplate.body || "";
+      baseEmailTo = data.emailTemplate.to || "";
+      syncEmailTemplate();
     }
 
     if (data.ticketLink && data.ticketLink.url) {
@@ -209,6 +241,21 @@ escalateButton.addEventListener("click", async () => {
       ticketLinkEl.classList.remove("hidden");
     } else {
       ticketLinkEl.classList.add("hidden");
+    }
+
+    const isLogin = data.issueType === "login";
+    if (isLogin) {
+      emailTemplateEl.classList.remove("hidden");
+      generalContactEl.classList.add("hidden");
+      loginContactEl.classList.remove("hidden");
+    } else {
+      emailTemplateEl.classList.add("hidden");
+      loginContactEl.classList.add("hidden");
+      generalContactEl.classList.remove("hidden");
+      baseEmailSubject = data.emailTemplate ? data.emailTemplate.subject || "IT Escalation" : "IT Escalation";
+      baseEmailBody = data.emailTemplate ? data.emailTemplate.body || "" : "";
+      baseEmailTo = data.emailTemplate ? data.emailTemplate.to || "" : "";
+      syncEmailTemplate();
     }
 
     setStatus(note, "success");
@@ -224,4 +271,9 @@ copyEmailButton.addEventListener("click", async () => {
   } catch (error) {
     setStatus("Failed to copy email template.", "error");
   }
+});
+
+additionalNotesEl.addEventListener("input", () => {
+  if (!baseEmailBody) return;
+  syncEmailTemplate();
 });

@@ -56,6 +56,10 @@
           <div class="email-template hidden" id="email-template">
             <h3>Email template</h3>
             <p>Copy this into an email to IT and send to NACCITSupport@livenation.com if needed.</p>
+            <label class="notes-field">
+              Additional notes
+              <textarea id="additional-notes" rows="4" placeholder="Add any extra details for IT..."></textarea>
+            </label>
             <textarea id="email-body" rows="10" readonly></textarea>
             <div class="email-actions">
               <button id="copy-email" type="button">Copy email</button>
@@ -65,6 +69,15 @@
               <p>For login/password issues, submit a ticket to the access team:</p>
               <a id="ticket-link-url" href="#" class="button-link" target="_blank" rel="noopener">Open access ticket</a>
             </div>
+            <div class="login-contact hidden" id="login-contact">
+              <p>Login issue? Reach out to IT@livenation.com.</p>
+              <a href="mailto:IT@livenation.com" class="button-link">Email IT@livenation.com</a>
+            </div>
+          </div>
+          <div class="general-contact hidden" id="general-contact">
+            <h3>Email IT</h3>
+            <p>Send your request directly to NACCITSupport@livenation.com.</p>
+            <a id="general-mailto" href="#" class="button-link">Email NACCITSupport@livenation.com</a>
           </div>
         </section>
       </main>

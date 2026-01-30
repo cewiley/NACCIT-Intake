@@ -175,6 +175,17 @@ button:hover {
   font-size: 0.9rem;
 }
 
+.notes-field {
+  display: block;
+  margin-top: 12px;
+  font-size: 0.9rem;
+}
+
+.notes-field textarea {
+  margin-top: 6px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 .email-actions {
   display: flex;
   gap: 10px;
@@ -188,6 +199,34 @@ button:hover {
 
 .ticket-link p {
   margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.login-contact {
+  margin-top: 12px;
+}
+
+.login-contact p {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.general-contact {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fbfaf6;
+}
+
+.general-contact h3 {
+  margin: 0 0 8px;
+}
+
+.general-contact p {
+  margin: 0 0 10px;
   color: var(--muted);
   font-size: 0.9rem;
 }
