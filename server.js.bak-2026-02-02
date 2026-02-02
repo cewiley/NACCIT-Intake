@@ -12,11 +12,11 @@ const EMAIL_SUBJECT_PREFIX = process.env.EMAIL_SUBJECT_PREFIX || "[IT Intake]";
 const LOGIN_TICKET_URL = process.env.LOGIN_TICKET_URL || "";
 const LOGIN_TICKET_LABEL = process.env.LOGIN_TICKET_LABEL || "Open access ticket";
 
-const JIRA_BASE_URL = process.env.JIRA_BASE_URL || "https://jira.livenation.com";
+const JIRA_BASE_URL = process.env.JIRA_BASE_URL || "";
 const JIRA_EMAIL = process.env.JIRA_EMAIL || "";
 const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN || "";
-const JIRA_PROJECT_KEY = process.env.JIRA_PROJECT_KEY || "FXCCIT";
-const JIRA_ISSUE_TYPE = process.env.JIRA_ISSUE_TYPE || "Bug";
+const JIRA_PROJECT_KEY = process.env.JIRA_PROJECT_KEY || "";
+const JIRA_ISSUE_TYPE = process.env.JIRA_ISSUE_TYPE || "Task";
 
 const sessions = new Map();
 
@@ -167,7 +167,7 @@ function hasJiraConfig() {
   return JIRA_BASE_URL && JIRA_EMAIL && JIRA_API_TOKEN && JIRA_PROJECT_KEY;
 }
 
-async function createJiraIssue({ summary, description }) {
+async function createJiraIssue({ summary, description, reporterName }) {
   if (!hasJiraConfig()) {
     return { skipped: true, reason: "Jira config incomplete" };
   }
@@ -187,7 +187,10 @@ async function createJiraIssue({ summary, description }) {
             }
           ]
         }
-      ]
+      ],
+      reporter: {
+        name: reporterName
+      }
     }
   };
 
@@ -299,10 +302,10 @@ app.post("/api/escalate", async (req, res) => {
 
     let jiraResult = { skipped: true, reason: "Jira config incomplete" };
     try {
-      // Jira Cloud requires reporter accountId; omit reporter by default.
       jiraResult = await createJiraIssue({
         summary: session.summary,
-        description: emailTemplate.body
+        description: emailTemplate.body,
+        reporterName: session.name
       });
     } catch (jiraError) {
       jiraResult = { skipped: false, error: jiraError.message };
