@@ -87,14 +87,14 @@ const tree = {
       { id: "hw_monitor", label: "Monitor / Display", next: "hardware_monitor" },
       { id: "hw_battery", label: "Battery / Power", next: "hardware_battery" },
       { id: "hw_dock", label: "Docking station", next: "hardware_dock" },
-      { id: "hw_other", label: "Other hardware", next: "hardware_more" }
+      { id: "hw_other", label: "Other hardware", next: "hardware_monitor_more" }
     ]
   },
   hardware_monitor: {
-    text: "Monitor checks:\n1) Confirm the monitor is powered on and the input source is correct.\n2)Reseat the power cable to the dock.\n3) Try a different port on the monitor/dock.\n4) Test the monitor on another device if possible.\n5) Reseat the video cable (HDMI/DP/USB‑C) and try another cable if available.\n\nDid that help?",
+    text: "Monitor checks:\n1) Confirm the monitor is powered on and the input source is correct.\n2) Reseat the power cable to the dock.\n3) Try a different port on the monitor/dock.\n4) Test the monitor on another device if possible.\n5) Reseat the video cable (HDMI/DP/USB‑C) and try another cable if available.\n\nDid that help?",
     options: [
       { id: "hw_mon_resolved", label: "Resolved", next: "resolved" },
-      { id: "hw_mon_still", label: "Still broken", next: "hardware_more" }
+      { id: "hw_mon_still", label: "Still broken", next: "hardware_monitor_more" }
     ]
   },
   hardware_battery: {
@@ -117,6 +117,13 @@ const tree = {
     options: [
       { id: "hw_more_resolved", label: "Resolved", next: "resolved" },
       { id: "hw_more_still", label: "Still broken", next: "escalate" }
+    ]
+  },
+    hardware_monitor_more: {
+    text: "Next checks:\n1) Note any indicator lights or error codes.\n2) Check if the device is detected in OS settings (Settings > System > Display).\n3) Provide model/serial if available.\n\nStill stuck?",
+    options: [
+      { id: "hw_mon_more_resolved", label: "Resolved", next: "resolved" },
+      { id: "hw_mon_more_still", label: "Still broken", next: "escalate" }
     ]
   },
   other: {
