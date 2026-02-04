@@ -91,7 +91,7 @@ const tree = {
     ]
   },
   hardware_monitor: {
-    text: "Monitor checks:\n1) Confirm the monitor is powered on and the input source is correct.\n2) Reseat the video cable (HDMI/DP/USB‑C) and try another cable if available.\n3) Try a different port on the monitor/dock.\n4) Test the monitor on another device if possible.\n5) On Windows: press Win+P and select a display mode.\n\nDid that help?",
+    text: "Monitor checks:\n1) Confirm the monitor is powered on and the input source is correct.\n2)Reseat the power cable to the dock.\n3) Try a different port on the monitor/dock.\n4) Test the monitor on another device if possible.\n5) Reseat the video cable (HDMI/DP/USB‑C) and try another cable if available.\n\nDid that help?",
     options: [
       { id: "hw_mon_resolved", label: "Resolved", next: "resolved" },
       { id: "hw_mon_still", label: "Still broken", next: "hardware_more" }
