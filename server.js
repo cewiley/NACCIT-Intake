@@ -98,7 +98,7 @@ const tree = {
     ]
   },
   hardware_battery: {
-    text: "Battery / power checks:\n1) Confirm the charger is the correct wattage for the device.\n2) Try a different wall outlet and cable if possible.\n3) Check for any charging indicator lights.\n4) If using USB‑C, try a different port.\n5) Reboot and confirm battery level changes.\n\nDid that help?",
+    text: "Battery / power checks:\n1) Try reinserting the power cable from the wall to the docking station.\n2) Try a different wall outlet and cable if possible.\n3) Check for any charging indicator lights.\n4) If using USB‑C, try a different port.\n5) Reboot and confirm battery level changes.\n\nDid that help?",
     options: [
       { id: "hw_bat_resolved", label: "Resolved", next: "resolved" },
       { id: "hw_bat_still", label: "Still broken", next: "hardware_more" }
@@ -120,7 +120,7 @@ const tree = {
     ]
   },
     hardware_monitor_more: {
-    text: "Next checks:\n1) Note any indicator lights or error codes.\n2) Check if the device is detected in OS settings (Settings > System > Display).\n3) Provide model/serial if available.\n\nStill stuck?",
+    text: "Next checks:\n1) Note any indicator lights or error codes.\n2) Check if the device is detected in OS settings (Settings > System > Display).\n3) .\n\nStill stuck?",
     options: [
       { id: "hw_mon_more_resolved", label: "Resolved", next: "resolved" },
       { id: "hw_mon_more_still", label: "Still broken", next: "escalate" }
